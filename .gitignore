@@ -52,3 +52,6 @@
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
 .idea/httpRequests
+
+# Node.js
+node_modules/

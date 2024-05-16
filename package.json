@@ -1,0 +1,11 @@
+{
+  "name": "coin-keeper",
+  "version": "1.0.0",
+  "description": "A web application for personal finance management",
+  "repository": "git@github.com:RedSkiesReaperr/coin-keeper.git",
+  "author": "RedSkiesReaperr <theopouletsouchard@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "flowbite": "2.3.0"
+  }
+}
