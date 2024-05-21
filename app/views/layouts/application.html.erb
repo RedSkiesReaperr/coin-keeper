@@ -12,7 +12,7 @@
 </head>
 
 <body>
-<div class="flex sm:pt-0 md:pt-4 overflow-hidden bg-gray-50 dark:bg-gray-900">
+<div class="flex sm:pt-0 h-full w-full md:pt-4 overflow-hidden bg-gray-50 dark:bg-gray-900">
   <%= render 'layouts/sidenav' %>
 
   <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 rounded-full text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
@@ -21,7 +21,7 @@
     </svg>
   </button>
 
-  <main class="p-4 sm:ml-64 p-4 mt-2 sm:mt-0">
+  <main class="p-4 sm:ml-64 p-4 mt-2 sm:mt-0 w-full">
     <%= yield %>
   </main>
 </div>
