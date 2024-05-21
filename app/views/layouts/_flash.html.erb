@@ -1,0 +1,5 @@
+<% flash.each do |type, msg| %>
+  <div class="p-4 text-sm rounded-lg dark:bg-gray-800 border rounded-lg <%= flash_classes(type) %>" role="alert">
+    <span class="font-medium"><%= msg %></span>
+  </div>
+<% end %>
