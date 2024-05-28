@@ -1,5 +1,8 @@
-<% flash.each do |type, msg| %>
-  <div class="p-4 text-sm rounded-lg dark:bg-gray-800 border rounded-lg <%= flash_classes(type) %>" role="alert">
-    <span class="font-medium"><%= msg %></span>
-  </div>
-<% end %>
+<!-- TODO: Responsive -->
+<div class="fixed bottom-0 right-0 w-2/5 mb-4 mr-4">
+  <% flash.each do |type, msg| %>
+    <div class="p-4 text-sm rounded-lg dark:bg-gray-800 border rounded-lg <%= flash_classes(type) %>" role="alert">
+      <span class="font-medium"><%= msg %></span>
+    </div>
+  <% end %>
+</div>
