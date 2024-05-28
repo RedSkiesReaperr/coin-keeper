@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CoinKeeper</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+
+<body id="landing-body">
+<main class="text-center mt-12 mx-12 2xl:mt-72 2xl:mx-72 xl:mt-60 xl:mx-60 lg:mt-48 lg:mx-48 md:mt-36 md:mx-36 sm:mt-24 sm:mx-24">
+  <%= yield %>
+</main>
+
+<img id="landing-badge" src="https://forthebadge.com/images/badges/made-with-ruby.svg" alt="made with ruby"/>
+</body>
+</html>

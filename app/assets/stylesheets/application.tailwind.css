@@ -1,6 +1,10 @@
+@import "landing.tailwind.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*  RESPONSIVE MODIFIERS 2xl: xl: lg: md: sm: */
 
 @layer components {
     html, body {

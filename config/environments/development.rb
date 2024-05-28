@@ -88,5 +88,11 @@ Rails.application.configure do
       end
     end
   end
+
+  # Enable DNS rebinding protection and other `Host` header attacks.
+  config.hosts = [
+    'localhost',
+    /.*\.ngrok-free\.app/ # Allow requests from subdomains like `www.ngrok-free.app`
+  ]
 end
 # rubocop:enable Metrics/BlockLength
