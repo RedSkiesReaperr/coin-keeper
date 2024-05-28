@@ -13,3 +13,7 @@ $ rails db:create db:migrate db:seed
 $ bin/dev
 $ open http://localhost:3000
 ```
+
+## Dependencies
+- [devise](https://github.com/heartcombo/devise)
+- [faker](https://github.com/faker-ruby/faker/tree/main)
