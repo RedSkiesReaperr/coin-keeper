@@ -8,6 +8,6 @@
     }
 
     h1 {
-        @apply text-2xl;
+        @apply text-2xl mb-10;
     }
 }
