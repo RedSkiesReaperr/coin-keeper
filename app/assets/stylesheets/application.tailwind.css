@@ -14,25 +14,31 @@
 /*@apply sm: ;*/
 
 @layer components {
-    html, body {
-        @apply h-full;
+    html, body, main {
+        @apply dark:bg-gray-900;
     }
 
-    h1 {
-        @apply font-bold text-center text-3xl mb-2;
-        @apply 2xl:text-3xl 2xl:mb-4;
-        @apply xl:text-3xl xl:mb-4;
-        @apply lg:text-3xl lg:mb-4;
-        @apply md:text-3xl md:mb-4;
-        @apply sm:text-3xl sm:mb-4;
-    }
+    body#application-body {
+        h1 {
+            @apply font-bold text-start text-3xl mb-2 dark:text-white;
+            @apply 2xl:text-3xl 2xl:mb-4;
+            @apply xl:text-3xl xl:mb-4;
+            @apply lg:text-3xl lg:mb-4;
+            @apply md:text-3xl md:mb-4;
+            @apply sm:text-3xl sm:mb-4;
+        }
 
-    h2 {
-        @apply text-start text-base;
-        @apply 2xl:text-center 2xl:text-lg;
-        @apply xl:text-center xl:text-lg;
-        @apply lg:text-center lg:text-lg;
-        @apply md:text-center md:text-lg;
-        @apply sm:text-center sm:text-lg;
+        h2 {
+            @apply text-start text-base dark:text-white mb-8;
+            @apply 2xl:text-start 2xl:text-lg;
+            @apply xl:text-start xl:text-lg;
+            @apply lg:text-start lg:text-lg;
+            @apply md:text-start md:text-lg;
+            @apply sm:text-start sm:text-lg;
+        }
+
+        .form-field {
+            @apply grow bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+        }
     }
 }

@@ -1,57 +1,89 @@
 <h1>Movements</h1>
+<h2>here you'll see movements for the period you selected on the menu</h2>
 
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-  <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-    <tr>
-      <th scope="col" class="px-6 py-3">Date</th>
-      <th scope="col" class="px-6 py-3">Label</th>
-      <th scope="col" class="px-6 py-3">Supplier</th>
-      <th scope="col" class="px-6 py-3">Amount</th>
-      <th scope="col" class="px-6 py-3">Comment</th>
-      <th scope="col" class="px-6 py-3">Pointed</th>
-      <th scope="col" class="px-6 py-3">Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @movements.each do |movement| %>
-      <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-          <%= date(movement) %>
-        </th>
-        <td data-tooltip-target="tooltip-movement-<%= movement.id %>-label" data-tooltip-placement="top" class="px-6 py-4">
-          <%= truncate movement.label, length: 40 %>
+<div class="flex flex-col">
+  <div class="grid grid-cols-1 gap-2 px-0 2xl:grid-cols-4 2xl:gap-6 2xl:px-6 xl:grid-cols-4 lg:grid-cols-3 lg:gap-4 md:grid-cols-2">
+    <div class="block max-w-sm p-6 bg-slate-50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">123</h5>
+      <p class="font-normal text-gray-700 dark:text-gray-400">Movements</p>
+    </div>
+    <div class="block max-w-sm p-6 bg-slate-50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">234.89 €</h5>
+      <p class="font-normal text-gray-700 dark:text-gray-400">Total amount</p>
+    </div>
+  </div>
 
-          <% if movement.label.size > 40 %>
-            <div id="tooltip-movement-<%= movement.id %>-label" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-              <%= movement.label %>
-              <div class="tooltip-arrow" data-popper-arrow></div>
-            </div>
-          <% end %>
-        </td>
-        <td class="px-6 py-4">
-          <%= movement.supplier %>
-        </td>
-        <td class="px-6 py-4">
-          <%= amount(movement) %>
-        </td>
-        <td data-tooltip-target="tooltip-movement-<%= movement.id %>-comment" data-tooltip-placement="top" class="px-6 py-4">
-          <%= truncate movement.comment, length: 50 %>
-          <% if movement.comment && movement.comment.size > 50 %>
-            <div id="tooltip-movement-<%= movement.id %>-comment" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-              <%= movement.comment %>
-              <div class="tooltip-arrow" data-popper-arrow></div>
-            </div>
-          <% end %>
-        </td>
-        <td class="px-6 py-4 text-center">
-          <%= check_box_tag '', movement.pointed, class: 'text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600' %>
-        </td>
-        <td class="px-6 py-4">
-          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-        </td>
+  <%= form_for root_url, class: 'mt-10 flex flex-row gap-x-2' do |f| %>
+    <button type="button" class="text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800 dark:hover:bg-red-500">
+      <svg class="size-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+      </svg>
+    </button>
+    <%= f.text_field :query, placeholder: 'Search by name/comment/amount', class: 'grow form-field' %>
+    <%= f.select :type, options_for_select([['All types', 0], ['Vital', 1], ['Non essential', 2], ['Income', 3]]), {}, class: 'form-field' %>
+    <%= f.select :category, options_for_select([['All categories', 0], ['Home', 1], ['Travel', 2]]), {}, class: 'form-field' %>
+    <%= f.select :pointed, options_for_select([['All \'pointed\' status', 0], ['Pointed', 1], ['Not pointed', 2]]), {}, class: 'form-field' %>
+    <%= f.select :ignored, options_for_select([['All \'ignored\' status', 0], ['Ignored', 1], ['Not ignored', 2]]), {}, class: 'form-field' %>
+    <%= f.submit 'Filter', class: 'text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700' %>
+  <% end %>
+
+  <div class="mt-10 relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th scope="col" class="px-6 py-3">Date</th>
+        <th scope="col" class="px-6 py-3">Label</th>
+        <th scope="col" class="px-6 py-3">Supplier</th>
+        <th scope="col" class="px-6 py-3">Amount</th>
+        <th scope="col" class="px-6 py-3">Comment</th>
+        <th scope="col" class="px-6 py-3">Pointed</th>
+        <th scope="col" class="px-6 py-3">Actions</th>
       </tr>
-    <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+      <% @movements.each do |movement| %>
+        <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <%= date(movement) %>
+          </th>
+          <td data-tooltip-target="tooltip-movement-<%= movement.id %>-label" data-tooltip-placement="top" class="px-6 py-4">
+            <%= truncate movement.label, length: 40 %>
+
+            <div id="tooltip-movement-<%= movement.id %>-label" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+              <% if movement.label.size > 40 %>
+                <%= movement.label %>
+                <div class="tooltip-arrow" data-popper-arrow></div>
+              <% end %>
+            </div>
+          </td>
+          <td class="px-6 py-4">
+            <%= movement.supplier %>
+          </td>
+          <td class="px-6 py-4">
+            <%= amount(movement) %>
+          </td>
+          <td data-tooltip-target="tooltip-movement-<%= movement.id %>-comment" data-tooltip-placement="top" class="px-6 py-4">
+            <%= truncate movement.comment, length: 50 %>
+            <% if movement.comment && movement.comment.size > 50 %>
+              <div id="tooltip-movement-<%= movement.id %>-comment" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                <%= movement.comment %>
+                <div class="tooltip-arrow" data-popper-arrow></div>
+              </div>
+            <% end %>
+          </td>
+          <td class="px-6 py-4 text-center">
+            <%= check_box_tag '', movement.pointed, class: 'text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600' %>
+          </td>
+          <td class="px-6 py-4">
+            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-4 flex flex-row justify-center">
+    <%== pagy_nav @pagy %>
+  </div>
 </div>

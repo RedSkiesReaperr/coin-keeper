@@ -4,6 +4,6 @@ class MovementsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @movements = Movement.all
+    @pagy, @movements = pagy(Movement.all)
   end
 end
