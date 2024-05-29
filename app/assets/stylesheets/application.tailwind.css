@@ -1,4 +1,6 @@
 @import "landing.tailwind.css";
+@import "devise.tailwind.css";
+@import "pagy.tailwind.css";
 
 @tailwind base;
 @tailwind components;
