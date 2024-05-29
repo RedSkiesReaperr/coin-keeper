@@ -1,10 +1,10 @@
 <!-- TODO: Responsive -->
 <% if resource.errors.any? %>
   <div class="fixed bottom-0 right-0 w-2/5 mb-4 mr-4" data-turbo-cache="false">
-    <% resource.errors.full_messages.each do |message| %>
-      <div class="p-4 text-sm rounded-lg dark:bg-gray-800 border rounded-lg <%= flash_classes('alert') %>" role="alert">
-        <span class="font-medium"><%= message %></span>
-      </div>
-    <% end %>
+    <div class="p-4 text-sm rounded-lg dark:bg-gray-800 border rounded-lg <%= flash_classes('alert') %>" role="alert">
+      <% resource.errors.full_messages.each do |message| %>
+        <p class="font-medium"><%= message %></p>
+      <% end %>
+    </div>
   </div>
 <% end %>
