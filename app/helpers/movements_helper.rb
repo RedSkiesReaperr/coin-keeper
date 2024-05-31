@@ -6,6 +6,9 @@ module MovementsHelper
   end
 
   def amount(movement)
-    number_to_currency(movement.amount, unit: '€', format: '%n %u')
+    amount = number_to_currency(movement.amount, unit: '€', format: '%n %u')
+    color = movement.amount.positive? ? 'text-green-600' : 'text-red-600'
+
+    tag.p(amount, class: color)
   end
 end

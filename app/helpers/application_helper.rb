@@ -13,4 +13,8 @@ module ApplicationHelper
       'text-gray-800 bg-gray-50 border-gray-300 dark:text-gray-300 dark:border-gray-800'
     end
   end
+
+  def currency(number, options = {})
+    number_to_currency(number, unit: '€', format: '%n %u', **options)
+  end
 end

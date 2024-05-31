@@ -9,6 +9,13 @@ class Movement < ApplicationRecord
   validates :label, :supplier, :amount, presence: true
   validates :pointed, :ignored, inclusion: [true, false]
 
+  scope :pointed, ->(status) { where(pointed: status) }
+  scope :ignored, ->(status) { where(ignored: status) }
+
+  def self.search(query:)
+    Movement.where("label LIKE :query OR comment LIKE :query", query: "%#{query}%")
+  end
+
   private
 
   def date_cannot_be_in_the_future
