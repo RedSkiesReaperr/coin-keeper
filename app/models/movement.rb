@@ -13,7 +13,7 @@ class Movement < ApplicationRecord
   scope :ignored, ->(status) { where(ignored: status) }
 
   def self.search(query:)
-    Movement.where("label LIKE :query OR comment LIKE :query", query: "%#{query}%")
+    Movement.where("label LIKE :query OR supplier LIKE :query OR comment LIKE :query", query: "%#{query}%")
   end
 
   private
