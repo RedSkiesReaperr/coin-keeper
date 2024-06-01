@@ -12,7 +12,9 @@
 </head>
 
 <body id="devise-body">
-<%= render 'layouts/flash' %>
+<div id="flash" class="fixed bottom-0 right-0 w-2/5 mb-4 mr-4 z-10">
+  <%= render 'layouts/flash' %>
+</div>
 
 <main class="mt-4 mx-4 2xl: xl: lg: md: sm:">
   <%= yield %>
