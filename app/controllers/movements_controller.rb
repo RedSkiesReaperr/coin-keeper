@@ -5,7 +5,7 @@ class MovementsController < ApplicationController
   before_action :set_movement, only: %i[show edit update]
 
   def index
-    results = Movement.search(query: params[:query]).order(date: :asc, label: :asc)
+    results = current_user.movements.search(query: params[:query]).order(date: :asc, label: :asc)
     results = results.pointed(params[:pointed]) if params[:pointed].present?
     results = results.ignored(params[:ignored]) if params[:ignored].present?
 
@@ -37,7 +37,7 @@ class MovementsController < ApplicationController
   private
 
   def set_movement
-    @movement = Movement.find(params[:id])
+    @movement = current_user.movements.find(params[:id])
   end
 
   def filtering_params
