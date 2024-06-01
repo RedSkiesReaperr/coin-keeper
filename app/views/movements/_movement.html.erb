@@ -1,4 +1,3 @@
-<% blur_class = movement.ignored ? 'blur-sm' : 'blur-none' %>
 <%= turbo_frame_tag movement, class: "odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700" do %>
   <div class="flex flex-row flex-wrap">
     <div class="px-4 py-2 w-32 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -18,7 +17,7 @@
 
     <div class="px-4 py-2 w-36 font-medium text-gray-900 whitespace-nowrap dark:text-white">
       <p class="text-xs italic">Amount</p>
-      <div class="<%= blur_class %>"><%= amount(movement) %></div>
+      <%= amount(movement) %>
     </div>
 
     <div class="px-4 py-2 w-96 font-medium text-gray-900 whitespace-nowrap dark:text-white">
