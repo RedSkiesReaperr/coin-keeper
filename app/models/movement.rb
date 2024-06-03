@@ -11,9 +11,10 @@ class Movement < ApplicationRecord
 
   scope :pointed, ->(status) { where(pointed: status) }
   scope :ignored, ->(status) { where(ignored: status) }
+  scope :within_date_range, ->(range) { where(date: range) }
 
   def self.search(query:)
-    Movement.where("label LIKE :query OR supplier LIKE :query OR comment LIKE :query", query: "%#{query}%")
+    Movement.where('label LIKE :query OR supplier LIKE :query OR comment LIKE :query', query: "%#{query}%")
   end
 
   private
