@@ -4,6 +4,8 @@ class DashboardController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @total_earnings = movements.incomes.sum(:amount)
+    @total_expenses = movements.expenses.sum(:amount)
     @year_saved_total = year_summary.saved_amount
     @year_average_saved = year_summary.average_saved_by_month
     @year_estimation = year_summary.saving_estimation
@@ -17,6 +19,10 @@ class DashboardController < ApplicationController
 
   def target_year
     Time.zone.today
+  end
+
+  def movements
+    @movements ||= current_user.movements.ignored(false)
   end
 
   def year_summary

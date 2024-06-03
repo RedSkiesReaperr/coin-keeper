@@ -12,6 +12,8 @@ class Movement < ApplicationRecord
   scope :pointed, ->(status) { where(pointed: status) }
   scope :ignored, ->(status) { where(ignored: status) }
   scope :within_date_range, ->(range) { where(date: range) }
+  scope :incomes, -> { where('amount > ?', 0.0) }
+  scope :expenses, -> { where('amount < ?', 0.0) }
 
   def self.search(query:)
     Movement.where('label LIKE :query OR supplier LIKE :query OR comment LIKE :query', query: "%#{query}%")
