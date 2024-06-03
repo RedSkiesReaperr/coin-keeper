@@ -17,3 +17,6 @@ $ open http://localhost:3000
 ## Dependencies
 - [devise](https://github.com/heartcombo/devise)
 - [faker](https://github.com/faker-ruby/faker/tree/main)
+- [pagy](https://github.com/ddnexus/pagy)
+- [rspec-rails](https://github.com/rspec/rspec-rails)
+- [factory_bot_rails](https://github.com/thoughtbot/factory_bot_rails)

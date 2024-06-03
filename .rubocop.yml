@@ -1,6 +1,8 @@
 require:
   - rubocop-rails
   - rubocop-capybara
+  - rubocop-factory_bot
+  - rubocop-rspec_rails
 
 AllCops:
   NewCops: enable
@@ -18,3 +20,12 @@ Style/Documentation:
 Metrics/AbcSize:
   Enabled: true
   CountRepeatedAttributes: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/MessageChain:
+  Enabled: false
+
+RSpec/VerifiedDoubles:
+  Enabled: false
