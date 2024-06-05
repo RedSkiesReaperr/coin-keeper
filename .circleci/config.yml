@@ -17,52 +17,67 @@ jobs:
           POSTGRES_DB: coin_keeper_test
 
     steps:
-      - browser-tools/install-browser-tools
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - checkout
       - run: |
           ruby --version
           node --version
           google-chrome --version
+
+      # Install dependencies
       - restore_cache:
           key: coinkeeper-{{ checksum "Gemfile.lock" }}
+
       - run: npm install
+
       - run: bundle install
+
       - save_cache:
           key: coinkeeper-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+
       - run:
           name: Setup Code Climate test-reporter
           command: |
             mkdir -p tmp/
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
-      - run:
-          name: Wait for postgres
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
       - run:
           name: Setup database
           command: bundle exec rake db:schema:load --trace
 
-#      - run:
-#          name: Run Rubocop
-#          command: bundle exec rubocop --parallel
+      # Quality steps
+      - run:
+          name: Run Rubocop
+          command: bundle exec rubocop
 
       - run:
           name: Run Brakeman
           command: bundle exec brakeman
 
       - run:
+          name: Rubycritic
+          command: bundle exec rubycritic --no-browser --format lint
+
+      # Testing steps
+      - run:
           name: Run RSpec
           command: |
             bundle exec rspec --format RspecJunitFormatter \
                               --out /tmp/test-results/rspec.xml \
                               --format progress
+
+      # Results upload steps
       - store_test_results:
           path: /tmp/test-results
+
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
+
       - run:
          name: Upload coverage results to Code Climate
          command: |

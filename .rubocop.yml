@@ -2,6 +2,7 @@ require:
   - rubocop-rails
   - rubocop-capybara
   - rubocop-factory_bot
+  - rubocop-rspec
   - rubocop-rspec_rails
 
 AllCops:
@@ -10,6 +11,7 @@ AllCops:
     - 'bin/**/*'
     - 'db/schema.rb'
     - 'db/migrate/**/*'
+    - 'vendor/**/*'
 
 Rails:
   Enabled: true

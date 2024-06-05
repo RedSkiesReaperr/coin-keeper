@@ -28,4 +28,8 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  movements:
+    create:
+      success: Movement was successfully created
+    update:
+      success: Movement was successfully updated

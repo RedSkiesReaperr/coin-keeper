@@ -70,7 +70,7 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
 
-  config.before(:all, js: true, type: :system) do
+  config.before(:all, :js, type: :system) do
     driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
   end
 end

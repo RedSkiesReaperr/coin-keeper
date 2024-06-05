@@ -11,7 +11,7 @@ class DashboardController < ApplicationController
     @year_estimation = year_summary.saving_estimation
     @year_saved_by_month = [year_summary.saving_by_months]
     @year_saved_by_month_labels = @year_saved_by_month.first&.map do |row|
-      Date::MONTHNAMES.compact[row[:month].month - 1]
+      time_to_month(row[:month])
     end
   end
 
@@ -27,5 +27,9 @@ class DashboardController < ApplicationController
 
   def year_summary
     @year_summary ||= YearSummary.new(user: current_user, year: target_year.year)
+  end
+
+  def time_to_month(time)
+    Date::MONTHNAMES.compact[time.month - 1]
   end
 end

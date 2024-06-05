@@ -1,0 +1,15 @@
+# mode_ci:
+#   enabled: false
+#   branch: 'main'
+# branch: 'main'
+path: '/tmp/rubycritic'
+threshold_score: 0
+deduplicate_symlinks: false
+suppress_ratings: false
+no_browser: false
+formats: # Available values are: html, json, console, lint. Default value is html.
+  - html
+minimum_score: 95
+paths:
+  - 'app/'
+  - 'lib/'
