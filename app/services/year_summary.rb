@@ -54,8 +54,4 @@ class YearSummary
   def saving_months_count
     @saving_months_count ||= sum_by_month.count { |row| row.sum.positive? }
   end
-
-  def months_with_data_count
-    @months_with_data_count ||= sum_by_month.length
-  end
 end
