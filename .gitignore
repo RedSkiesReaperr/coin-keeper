@@ -55,3 +55,6 @@
 
 # Node.js
 node_modules/
+
+# Simplecov
+coverage/

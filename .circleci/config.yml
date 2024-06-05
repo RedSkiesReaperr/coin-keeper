@@ -12,6 +12,10 @@ jobs:
           BUNDLER_VERSION: 2.5.10
           RAILS_ENV: test
       - image: cimg/postgres:16.2
+        environment:
+          POSTGRES_USER: coin_keeper
+          POSTGRES_DB: coin_keeper_test
+
     steps:
       - browser-tools/install-browser-tools
       - checkout
@@ -21,3 +25,46 @@ jobs:
           google-chrome --version
       - restore_cache:
           key: coinkeeper-{{ checksum "Gemfile.lock" }}
+      - run: npm install
+      - run: bundle install
+      - save_cache:
+          key: coinkeeper-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - run:
+          name: Setup Code Climate test-reporter
+          command: |
+            mkdir -p tmp/
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+      - run:
+          name: Wait for postgres
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Setup database
+          command: bundle exec rake db:schema:load --trace
+
+#      - run:
+#          name: Run Rubocop
+#          command: bundle exec rubocop --parallel
+
+      - run:
+          name: Run Brakeman
+          command: bundle exec brakeman
+
+      - run:
+          name: Run RSpec
+          command: |
+            bundle exec rspec --format RspecJunitFormatter \
+                              --out /tmp/test-results/rspec.xml \
+                              --format progress
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+      - run:
+         name: Upload coverage results to Code Climate
+         command: |
+           ./cc-test-reporter format-coverage -t simplecov $CIRCLE_ARTIFACTS/coverage/.resultset.json
+           ./cc-test-reporter upload-coverage
