@@ -1,0 +1,23 @@
+version: 2.1
+
+orbs:
+  browser-tools: circleci/browser-tools@1.4.8
+
+jobs:
+  build:
+    docker:
+      - image: cimg/ruby:3.2.2-browsers
+        environment:
+          BUNDLE_PATH: vendor/bundle
+          BUNDLER_VERSION: 2.5.10
+          RAILS_ENV: test
+      - image: cimg/postgres:16.2
+    steps:
+      - browser-tools/install-browser-tools
+      - checkout
+      - run: |
+          ruby --version
+          node --version
+          google-chrome --version
+      - restore_cache:
+          key: coinkeeper-{{ checksum "Gemfile.lock" }}
