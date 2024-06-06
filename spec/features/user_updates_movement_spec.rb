@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-feature 'User updates movement', :js do
+describe 'User updates movement', :js do
   let(:user) { create(:user) }
   let(:movement) { create(:movement, user:) }
 
@@ -8,7 +10,7 @@ feature 'User updates movement', :js do
     sign_in user
   end
 
-  scenario 'they see the updated movement' do
+  it 'they see the updated movement' do
     visit edit_movement_path(movement)
 
     fill_in 'movement[comment]', with: 'My updated comment!'
