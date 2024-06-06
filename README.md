@@ -26,3 +26,4 @@ $ open http://localhost:3000
 - [pagy](https://github.com/ddnexus/pagy)
 - [rspec-rails](https://github.com/rspec/rspec-rails)
 - [simplecov](https://github.com/simplecov-ruby/simplecov)
+- [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers)

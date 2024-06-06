@@ -11,6 +11,7 @@ jobs:
           BUNDLE_PATH: vendor/bundle
           BUNDLER_VERSION: 2.5.10
           RAILS_ENV: test
+          HEADLESS: true
       - image: cimg/postgres:16.2
         environment:
           POSTGRES_USER: coin_keeper
@@ -79,7 +80,7 @@ jobs:
           destination: test-results
 
       - run:
-         name: Upload coverage results to Code Climate
-         command: |
-           ./cc-test-reporter format-coverage -t simplecov $CIRCLE_ARTIFACTS/coverage/.resultset.json
-           ./cc-test-reporter upload-coverage
+          name: Upload coverage results to Code Climate
+          command: |
+            ./cc-test-reporter format-coverage -t simplecov $CIRCLE_ARTIFACTS/coverage/.resultset.json
+            ./cc-test-reporter upload-coverage
