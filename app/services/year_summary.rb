@@ -15,7 +15,7 @@ class YearSummary
   def average_saved_by_month
     amounts = sum_by_month.filter_map { |row| row.sum if row.sum.positive? }
 
-    amounts.sum / amounts.count
+    amounts.count.positive? ? (amounts.sum / amounts.count) : 0.0
   end
 
   def saving_estimation
