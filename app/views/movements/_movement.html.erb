@@ -27,12 +27,12 @@
 
     <div class="px-4 py-2 w-24 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
       <p class="text-xs italic">Pointed</p>
-      <%= check_box_tag '', nil, movement.pointed, disabled: true, class: 'text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600' %>
+      <%= check_box_tag 'movement[pointed]', nil, movement.pointed, disabled: true, class: 'text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600' %>
     </div>
 
     <div class="px-4 py-2 w-24 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
       <p class="text-xs italic">Ignored</p>
-      <%= check_box_tag '', nil, movement.ignored, disabled: true, class: 'text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600' %>
+      <%= check_box_tag 'movement[ignored]', nil, movement.ignored, disabled: true, class: 'text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600' %>
     </div>
 
     <div class="flex flex-grow justify-end items-center px-4 py-2">
