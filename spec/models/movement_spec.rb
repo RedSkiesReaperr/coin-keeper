@@ -99,24 +99,24 @@ RSpec.describe Movement do
 
     context 'when searching for a label' do
       it 'returns only movements with label' do
-        expect(described_class.search(query: 'Donatello')).to eq([movements[1], movements[3]])
+        expect(described_class.search('Donatello')).to eq([movements[1], movements[3]])
       end
     end
 
     context 'when searching for a supplier' do
       it 'returns only movements with supplier' do
-        expect(described_class.search(query: 'Vincent')).to eq([movements[2]])
+        expect(described_class.search('Vincent')).to eq([movements[2]])
       end
     end
 
     context 'when searching for a comment' do
       it 'returns only movements with comment' do
-        expect(described_class.search(query: 'Big Coffee')).to eq([movements[4]])
+        expect(described_class.search('Big Coffee')).to eq([movements[4]])
       end
     end
 
     context 'when searching with non existent movement' do
-      it { expect(described_class.search(query: 'Not found')).to be_empty }
+      it { expect(described_class.search('Not found')).to be_empty }
     end
   end
 end

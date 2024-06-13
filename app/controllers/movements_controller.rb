@@ -7,7 +7,7 @@ class MovementsController < ApplicationController
   def index
     @movements_count = filtered_movements.count
     @total_amount = filtered_movements.sum(:amount)
-    @pagy, @movements = pagy(filtered_movements)
+    @pagy, @movements = pagy(filtered_movements.order(date: :asc, label: :asc))
 
     respond_to do |format|
       format.html
@@ -46,7 +46,8 @@ class MovementsController < ApplicationController
 
   def filtered_movements
     @filtered_movements ||= begin
-      results = current_user.movements.search(query: params[:query]).order(date: :asc, label: :asc)
+      results = current_user.movements
+      results = results.search(params[:query]) if params[:query].present?
       results = results.pointed(params[:pointed]) if params[:pointed].present?
       results = results.ignored(params[:ignored]) if params[:ignored].present?
       results

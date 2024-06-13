@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Movement < ApplicationRecord
+  include PgSearch::Model
+
   belongs_to :user
 
   validates :date, presence: true
@@ -15,9 +17,12 @@ class Movement < ApplicationRecord
   scope :incomes, -> { where('amount > ?', 0.0) }
   scope :expenses, -> { where('amount < ?', 0.0) }
 
-  def self.search(query:)
-    Movement.where('label LIKE :query OR supplier LIKE :query OR comment LIKE :query', query: "%#{query}%")
-  end
+  pg_search_scope :search, against: {
+    label: 'A',
+    supplier: 'B',
+    amount: 'C',
+    comment: 'D'
+  }
 
   private
 
