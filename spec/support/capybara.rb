@@ -9,7 +9,7 @@ end
 Capybara.javascript_driver = ENV['HEADLESS'] == 'true' ? :selenium_chrome_headless : :selenium_chrome
 
 RSpec.configure do |config|
-  config.after do |example|
+  config.after(:each, type: :feature) do |example|
     puts "\nScreenshot saved to => #{save_and_open_screenshot}\n\n" if example.exception # rubocop:disable Lint/Debugger
   end
 end
