@@ -27,11 +27,6 @@ RSpec.describe Movement do
     let(:pointed) { create_list(:movement, 1, pointed: true) }
     let(:not_pointed) { create_list(:movement, 2, pointed: false) }
 
-    before do
-      pointed
-      not_pointed
-    end
-
     context 'with true as argument' do
       it 'returns only pointed movements' do
         expect(described_class.pointed(true)).to eq(pointed)
@@ -48,11 +43,6 @@ RSpec.describe Movement do
   describe '.ignored' do
     let(:ignored) { create_list(:movement, 3, ignored: true) }
     let(:not_ignored) { create_list(:movement, 2, ignored: false) }
-
-    before do
-      ignored
-      not_ignored
-    end
 
     context 'with true as argument' do
       it 'returns only ignored movements' do
@@ -72,11 +62,6 @@ RSpec.describe Movement do
     let(:in_date_range) { create_list(:movement, 3, date: Time.zone.today) }
     let(:not_in_date_range) { create_list(:movement, 2, date: Time.zone.yesterday) }
 
-    before do
-      in_date_range
-      not_in_date_range
-    end
-
     it 'returns only movements with date in range' do
       expect(described_class.within_date_range(range)).to eq(in_date_range)
     end
@@ -86,11 +71,6 @@ RSpec.describe Movement do
     let(:incomes) { create_list(:movement, 2, amount: Faker::Number.positive) }
     let(:not_incomes) { create_list(:movement, 3, amount: Faker::Number.negative) }
 
-    before do
-      incomes
-      not_incomes
-    end
-
     it 'returns only movements with positive amount' do
       expect(described_class.incomes).to eq(incomes)
     end
@@ -99,11 +79,6 @@ RSpec.describe Movement do
   describe '.expenses' do
     let(:expenses) { create_list(:movement, 2, amount: Faker::Number.negative) }
     let(:not_expenses) { create_list(:movement, 3, amount: Faker::Number.positive) }
-
-    before do
-      expenses
-      not_expenses
-    end
 
     it 'returns only movements with negative amount' do
       expect(described_class.expenses).to eq(expenses)
@@ -120,10 +95,6 @@ RSpec.describe Movement do
         create(:movement, label: 'Warhol', supplier: 'Kahlo', comment: 'Big Coffee'),
         create(:movement, label: 'Manet', supplier: 'Degas', comment: '12 Box')
       ]
-    end
-
-    before do
-      movements
     end
 
     context 'when searching for a label' do
