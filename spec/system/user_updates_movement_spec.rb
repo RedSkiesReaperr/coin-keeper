@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'User updates movement', :js do
+RSpec.describe 'User updates movement', :js do
   let(:user) { create(:user) }
   let(:movement) { create(:movement, user:) }
 
