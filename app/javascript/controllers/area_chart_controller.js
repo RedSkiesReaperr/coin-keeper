@@ -6,40 +6,65 @@ export default class extends Controller {
     data: Array, // Array<Array<typeof serie>>
     seriesNames: Array, // Array<string>
     seriesColors: Array, // Array<string>
-    labels: Array  // Array<string>
+    strokeWidth: Number
   }
 
   connect() {
     this.render()
   }
 
-  buildSeries() {
+  render() {
+    if (typeof ApexCharts !== 'undefined') {
+      const chart = new ApexCharts(this.element, this.chartOptions);
+      chart.render();
+    }
+  }
+
+  get series() {
     let series = []
 
-    for (let i = 0; i < this.dataValue.length; i++) {
-      let curr_serie = {
-        name: this.seriesNamesValue[i],
+    for (let serieKey = 0; serieKey < this.dataValue.length; serieKey++) {
+      let newSerie = {
+        name: this.seriesNamesValue[serieKey],
         data: [],
-        color: this.seriesColorsValue[i]
+        color: this.seriesColorsValue[serieKey]
       }
 
-      for (let j = 0; j < this.dataValue[i].length; j++) {
-        curr_serie.data.push(this.dataValue[i][j].amount)
+      for (let serie = 0; serie < this.dataValue[serieKey].length; serie++) {
+        newSerie.data.push(this.dataValue[serieKey][serie].value)
       }
 
-      series.push(curr_serie)
+      series.push(newSerie)
     }
 
     return series;
   }
 
-  render() {
-    const options = {
+  get labels() {
+    let labels = []
+
+    for (let serieKey = 0; serieKey < this.dataValue.length; serieKey++) {
+      for (let serie = 0; serie < this.dataValue[serieKey].length; serie++) {
+        let key = this.dataValue[serieKey][serie].key
+        let label = new Date(key).toLocaleDateString()
+
+        if (label !== 'Invalid Date') {
+          labels.push(label)
+        } else {
+          labels.push(key)
+        }
+      }
+    }
+
+    return labels;
+  }
+
+  get chartOptions() {
+    return {
       chart: {
         height: "100%",
-        maxWidth: "100%",
+        width: "100%",
         type: "area",
-        fontFamily: "Inter, sans-serif",
         dropShadow: {
           enabled: false,
         },
@@ -49,37 +74,33 @@ export default class extends Controller {
       },
       tooltip: {
         enabled: true,
-        x: {
-          show: false,
-        },
       },
       fill: {
         type: "gradient",
         gradient: {
           opacityFrom: 0.55,
           opacityTo: 0,
-          shade: "#2ecc71",
-          gradientToColors: ["#27ae60"],
         },
       },
       dataLabels: {
         enabled: false,
       },
       stroke: {
-        width: 6,
+        width: this.strokeWidthValue || 6,
       },
       grid: {
         show: false,
         strokeDashArray: 4,
         padding: {
-          left: 2,
-          right: 2,
-          top: 0
-        },
+          top: 0,
+          right: 1,
+          bottom: 0,
+          left: 1
+        }
       },
-      series: this.buildSeries(),
+      series: this.series,
       xaxis: {
-        categories: this.labelsValue,
+        categories: this.labels,
         labels: {
           show: false,
         },
@@ -89,15 +110,13 @@ export default class extends Controller {
         axisTicks: {
           show: false,
         },
+        tooltip: {
+          enabled: false
+        }
       },
       yaxis: {
         show: false,
       },
-    }
-
-    if (typeof ApexCharts !== 'undefined') {
-      const chart = new ApexCharts(this.element, options);
-      chart.render();
     }
   }
 }
