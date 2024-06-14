@@ -17,16 +17,20 @@ class DashboardController < ApplicationController
 
   private
 
+  def target_period
+    @target_period ||= Time.zone.today.beginning_of_year..(Time.zone.today.beginning_of_year + 2.months)
+  end
+
   def target_year
-    Time.zone.today
+    @target_year ||= target_period.last.year
   end
 
   def movements
-    @movements ||= current_user.movements.ignored(false)
+    @movements ||= current_user.movements.within_date_range(target_period).ignored(false)
   end
 
   def year_summary
-    @year_summary ||= YearSummary.new(user: current_user, year: target_year.year)
+    @year_summary ||= YearSummary.new(user: current_user, year: target_year)
   end
 
   def time_to_month(time)
