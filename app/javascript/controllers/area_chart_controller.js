@@ -2,6 +2,7 @@ import {Controller} from "@hotwired/stimulus"
 import ApexCharts from 'apexcharts'
 // Connects to data-controller="area-chart"
 export default class extends Controller {
+  static targets = "chart"
   static values = {
     data: Array, // Array<Array<typeof serie>>
     seriesNames: Array, // Array<string>
@@ -10,14 +11,12 @@ export default class extends Controller {
   }
 
   connect() {
-    this.render()
+    this.chartTarget = new ApexCharts(this.element, this.chartOptions);
+    this.chartTarget.render();
   }
 
-  render() {
-    if (typeof ApexCharts !== 'undefined') {
-      const chart = new ApexCharts(this.element, this.chartOptions);
-      chart.render();
-    }
+  disconnect() {
+    this.chartTarget.destroy();
   }
 
   get series() {
