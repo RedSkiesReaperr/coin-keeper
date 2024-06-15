@@ -22,12 +22,8 @@ class DashboardController < ApplicationController
     @target_period ||= Time.zone.today.beginning_of_year...(Time.zone.today.beginning_of_year + 2.months)
   end
 
-  def target_year
-    @target_year ||= target_period.last.year
-  end
-
   def movements
-    @movements ||= current_user.movements.within_date_range(target_period).ignored(false)
+    @movements ||= current_user.movements.ignored(false).within_date_range(target_period)
   end
 
   def earnings_summary
@@ -39,6 +35,6 @@ class DashboardController < ApplicationController
   end
 
   def year_summary
-    @year_summary ||= YearSummary.new(user: current_user, year: target_year)
+    @year_summary ||= YearSummary.new(movements: current_user.movements.ignored(false), year: target_period.last.year)
   end
 end

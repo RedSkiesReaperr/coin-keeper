@@ -9,6 +9,7 @@ describe MovementsSummary do
 
   before do
     # January
+    create(:movement, user:, date: Date.new(2024, 1, 9), amount: 10.0, ignored: false)
     create(:movement, user:, date: Date.new(2024, 1, 10), amount: -931.07, ignored: false)
     create(:movement, user:, date: Date.new(2024, 1, 11), amount: -736.07, ignored: false)
     create(:movement, user:, date: Date.new(2024, 1, 11), amount: -831.07, ignored: false)
@@ -49,6 +50,21 @@ describe MovementsSummary do
 
     it 'returns an array of days in period with their amounts' do
       expect(service.by_days).to eq(expected)
+    end
+  end
+
+  describe '.by_months' do
+    let(:period) { Date.new(2024, 1, 10)..Date.new(2024, 3, 31) }
+    let(:expected) do
+      [
+        { month: Date.new(2024, 1, 1), amount: -2_165.76 },
+        { month: Date.new(2024, 2, 1), amount: -366.67 },
+        { month: Date.new(2024, 3, 1), amount: 654.04 }
+      ]
+    end
+
+    it 'returns an array of months in period with their amounts' do
+      expect(service.by_months).to eq(expected)
     end
   end
 end

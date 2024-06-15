@@ -34,6 +34,8 @@ RSpec.describe 'User sees dashboard', :js do
   end
 
   before do
+    travel_to(Date.new(2024, 7, 1))
+
     movements
     sign_in user
     visit dashboard_path
@@ -61,6 +63,6 @@ RSpec.describe 'User sees dashboard', :js do
   end
 
   it 'sees saving estimation at the end of year' do
-    expect(page).to have_content('3,553.06 € Estimated saving at the end of year', normalize_ws: true)
+    expect(page).to have_content('1,812.79 € Estimated saving at the end of year', normalize_ws: true)
   end
 end

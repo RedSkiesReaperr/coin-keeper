@@ -4,9 +4,11 @@ require 'rails_helper'
 
 describe YearSummary do
   let(:user) { create(:user) }
-  let(:service) { described_class.new(user:, year: 2024) }
+  let(:service) { described_class.new(movements: Movement.all, year: 2024) }
 
   before do
+    travel_to(Date.new(2024, 5, 15))
+
     # January
     create(:movement, user:, date: Date.new(2024, 1, 10), amount: -931.07, ignored: false)
     create(:movement, user:, date: Date.new(2024, 1, 22), amount: -25.43, ignored: false)
@@ -39,8 +41,8 @@ describe YearSummary do
   end
 
   describe '.saving_estimation' do
-    it 'returns' do
-      expect(service.saving_estimation).to eq(3714.02)
+    it 'returns year saving estimation' do
+      expect(service.saving_estimation).to eq(2_599.814)
     end
   end
 
@@ -50,7 +52,15 @@ describe YearSummary do
         { month: Time.zone.local(2024, 1, 1), amount: 0.0 },
         { month: Time.zone.local(2024, 2, 1), amount: 0.0 },
         { month: Time.zone.local(2024, 3, 1), amount: 654.04 },
-        { month: Time.zone.local(2024, 4, 1), amount: 1202.97 }
+        { month: Time.zone.local(2024, 4, 1), amount: 1202.97 },
+        { month: Time.zone.local(2024, 5, 1), amount: 0.0 },
+        { month: Time.zone.local(2024, 6, 1), amount: 0.0 },
+        { month: Time.zone.local(2024, 7, 1), amount: 0.0 },
+        { month: Time.zone.local(2024, 8, 1), amount: 0.0 },
+        { month: Time.zone.local(2024, 9, 1), amount: 0.0 },
+        { month: Time.zone.local(2024, 10, 1), amount: 0.0 },
+        { month: Time.zone.local(2024, 11, 1), amount: 0.0 },
+        { month: Time.zone.local(2024, 12, 1), amount: 0.0 }
       ]
     end
 

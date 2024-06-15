@@ -79,4 +79,6 @@ RSpec.configure do |config|
   config.before(:each, :js, type: :system) do
     driven_by ENV['HEADLESS'] == 'true' ? :selenium_chrome_headless : :selenium_chrome
   end
+
+  config.include ActiveSupport::Testing::TimeHelpers
 end

@@ -1,57 +1,54 @@
 # frozen_string_literal: true
 
-class YearSummary
-  def initialize(user:, year:)
-    @user = user
-    @year = year
+class YearSummary < MovementsSummary
+  def initialize(movements:, year:)
+    @year_date = Date.new(year, 1, 1)
+
+    super(movements:, period: @year_date.all_year)
   end
 
   def saved_amount
-    amount = movements.sum(&:amount)
+    amount = period_movements.sum(&:amount)
 
     amount.positive? ? amount : 0
   end
 
   def average_saved_by_month
-    amounts = sum_by_month.filter_map { |row| row.sum if row.sum.positive? }
+    amounts = sum_by_months.filter_map { |row| row[:amount] if row[:amount].positive? }
 
     amounts.count.positive? ? (amounts.sum / amounts.count) : 0.0
   end
 
   def saving_estimation
-    computed_months = sum_by_month.length
     number_of_month_left = 12 - computed_months
-    saving_months = saving_months_count
-    saving_months_ratio = saving_months.to_f / computed_months
+    saving_months_ratio = saving_months_count.to_f / computed_months
 
     average_saved_by_month * (number_of_month_left * saving_months_ratio)
   end
 
   def saving_by_months
-    sum_by_month.map do |row|
-      amount = row.sum.positive? ? row.sum : 0
-
-      { month: row.month, amount: }
+    sum_by_months.each_with_index do |row, i|
+      sum_by_months[i][:amount] = 0.0 if row[:amount].negative?
     end
   end
 
   private
 
-  def target_year
-    @target_year ||= Date.new(@year, 1, 1)
-  end
-
-  def movements
-    @movements ||= @user.movements.ignored(false).within_date_range(target_year.all_year)
-  end
-
-  def sum_by_month
-    @sum_by_month ||= movements.select("DATE_TRUNC('month', date) AS month, SUM(amount) AS sum")
-                               .group("DATE_TRUNC('month', date)")
-                               .order('month')
+  def sum_by_months
+    @sum_by_months ||= by_months
   end
 
   def saving_months_count
-    @saving_months_count ||= sum_by_month.count { |row| row.sum.positive? }
+    @saving_months_count ||= sum_by_months.count { |month_row| month_row[:amount].positive? }
+  end
+
+  def computed_months
+    if Time.zone.today >= @year_date.end_of_year.beginning_of_month
+      12
+    elsif Time.zone.today <= @year_date.beginning_of_year
+      0
+    else
+      Time.zone.today.month
+    end
   end
 end
