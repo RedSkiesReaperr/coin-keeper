@@ -17,7 +17,9 @@
 
     <div class="px-4 py-2 w-36 font-medium text-gray-900 whitespace-nowrap dark:text-white">
       <p class="text-xs italic">Amount</p>
-      <%= amount(movement) %>
+      <div class="<%= movement.ignored? ? "blur-sm hover:blur-none" : "" %>">
+        <%= amount(movement) %>
+      </div>
     </div>
 
     <div class="px-4 py-2 w-96 font-medium text-gray-900 whitespace-nowrap dark:text-white">
