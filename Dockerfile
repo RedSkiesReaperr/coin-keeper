@@ -19,7 +19,19 @@ FROM base as build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config
+    apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config curl
+
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh
+RUN bash nodesource_setup.sh
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y nodejs
+
+# Install npm packages
+RUN node -v
+RUN npm install -g yarn
+COPY package.json yarn.lock ./
+RUN yarn install
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./

@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
+  host: db
   database: coin_keeper_production
   username: coin_keeper
   password: <%= ENV["COIN_KEEPER_DATABASE_PASSWORD"] %>

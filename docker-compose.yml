@@ -1,0 +1,17 @@
+version: '3.2'
+
+services:
+  app:
+    image: redskiesreaperr/coinkeeper
+    environment:
+      RAILS_MASTER_KEY: #master key
+      COIN_KEEPER_DATABASE_PASSWORD: #db password
+    ports:
+      - "3333:3000"
+
+  db:
+    image: postgres:16.2
+    environment:
+      POSTGRES_USER: coin_keeper
+      POSTGRES_PASSWORD: #db password
+      POSTGRES_DB: coin_keeper_production
