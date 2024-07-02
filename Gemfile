@@ -52,6 +52,7 @@ gem 'bootsnap', require: false
 gem 'devise'
 gem 'pagy'
 gem 'pg_search', '~> 2.3'
+gem 'sidekiq'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
