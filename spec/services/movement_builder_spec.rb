@@ -20,9 +20,18 @@ describe MovementBuilder do
   end
 
   describe '.build_supplier' do
-    it 'sets the supplier' do
-      builder.build_supplier('supplier #1')
-      expect(builder.movement.supplier).to eq('supplier #1')
+    context 'when supplier argument is nil' do
+      it 'sets the supplier as "Unknown"' do
+        builder.build_supplier(nil)
+        expect(builder.movement.supplier).to eq('Unknown')
+      end
+    end
+
+    context 'when supplier argument is not nil' do
+      it 'sets the supplier with argument value' do
+        builder.build_supplier('supplier #1')
+        expect(builder.movement.supplier).to eq('supplier #1')
+      end
     end
   end
 

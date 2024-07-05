@@ -16,7 +16,7 @@ class MovementBuilder
   end
 
   def build_supplier(supplier)
-    @movement.supplier = supplier
+    @movement.supplier = (supplier.presence || 'Unknown')
   end
 
   def build_amount(amount)
