@@ -29,7 +29,13 @@
 
 en:
   movements:
-    create:
-      success: Movement was successfully created
+    import:
+      enqueued: Movements import task created
+      started: Movements import started, please wait...
+      success: Movements were successfully imported
+      failure: "Error while importing movements: %{msg}"
+      errors:
+        generic: Something went wrong
+        invalid_csv: CSV file is invalid/malformed
     update:
       success: Movement was successfully updated
