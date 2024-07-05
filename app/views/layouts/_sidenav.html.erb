@@ -73,15 +73,10 @@
     </ul>
   </div>
 
-  <div class="absolute bottom-0 left-0 justify-start p-4 w-full lg:flex-col lg:flex-wrap lg:items-stretch lg:content-stretch dark:bg-gray-800 z-20 border-r border-gray-200 dark:border-gray-700">
+  <div class="absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex dark:bg-gray-800 z-20 border-r border-gray-200 dark:border-gray-700">
     <a data-controller="dark-mode" data-action="click->dark-mode#switch" class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-600">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/>
-      </svg>
-    </a>
-    <a class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-600">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"/>
       </svg>
     </a>
     <% if user_signed_in? %>

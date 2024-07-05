@@ -19,6 +19,11 @@ class MovementsController < ApplicationController
 
   def edit; end
 
+  def create
+    attach = current_user.import_files.attach(params[:file])
+    ImportMovementsJob.perform_later(attachment_id: attach.last.id, user: current_user)
+  end
+
   def update
     if @movement.update(update_params)
       respond_to do |format|
