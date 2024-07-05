@@ -37,7 +37,7 @@ class MovementsController < ApplicationController
   end
 
   def filtering_params
-    params.permit(:query, :pointed, :ignored)
+    params.permit(:format, :query, :pointed, :ignored)
   end
 
   def update_params
@@ -47,9 +47,9 @@ class MovementsController < ApplicationController
   def filtered_movements
     @filtered_movements ||= begin
       results = current_user.movements
-      results = results.search(params[:query]) if params[:query].present?
-      results = results.pointed(params[:pointed]) if params[:pointed].present?
-      results = results.ignored(params[:ignored]) if params[:ignored].present?
+      results = results.search(filtering_params[:query]) if filtering_params[:query].present?
+      results = results.pointed(filtering_params[:pointed]) if filtering_params[:pointed].present?
+      results = results.ignored(filtering_params[:ignored]) if filtering_params[:ignored].present?
       results
     end
   end
