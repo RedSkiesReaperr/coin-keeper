@@ -6,6 +6,6 @@
   "author": "RedSkiesReaperr <theopouletsouchard@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "flowbite": "2.3.0"
+    "flowbite": "2.4.1"
   }
 }
