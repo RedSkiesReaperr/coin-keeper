@@ -49,9 +49,17 @@ class MovementsController < ApplicationController
     params.require(:movement).permit(:label, :comment, :pointed, :ignored)
   end
 
+  def target_period
+    @target_period ||= current_user.user_preference.dates_range
+  end
+
+  def movements
+    @movements ||= current_user.movements.within_date_range(target_period)
+  end
+
   def filtered_movements
     @filtered_movements ||= begin
-      results = current_user.movements
+      results = movements
       results = results.search(filtering_params[:query]) if filtering_params[:query].present?
       results = results.pointed(filtering_params[:pointed]) if filtering_params[:pointed].present?
       results = results.ignored(filtering_params[:ignored]) if filtering_params[:ignored].present?

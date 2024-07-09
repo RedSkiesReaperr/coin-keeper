@@ -19,7 +19,7 @@ class DashboardController < ApplicationController
   private
 
   def target_period
-    @target_period ||= Time.zone.today.beginning_of_year...(Time.zone.today.beginning_of_year + 2.months)
+    @target_period ||= current_user.user_preference.dates_range
   end
 
   def movements

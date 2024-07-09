@@ -39,3 +39,6 @@ en:
         invalid_csv: CSV file is invalid/malformed
     update:
       success: Movement was successfully updated
+  user_preferences:
+    update:
+      invalid: Period %{from} - %{to} is invalid

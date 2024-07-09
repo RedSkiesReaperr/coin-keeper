@@ -15,9 +15,10 @@ Rails.application.routes.draw do
 
   authenticate :user do
     mount Sidekiq::Web => '/sidekiq'
+
+    get 'dashboard', to: 'dashboard#index'
+
+    resources :movements
+    resources :user_preferences, only: %i[update]
   end
-
-  get 'dashboard', to: 'dashboard#index'
-
-  resources :movements
 end
