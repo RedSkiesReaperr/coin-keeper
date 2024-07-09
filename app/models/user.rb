@@ -15,6 +15,8 @@ class User < ApplicationRecord
   private
 
   def create_user_preference
-    UserPreference.create!(user: self)
+    UserPreference.create!(user: self,
+                           start_date: Time.zone.today.beginning_of_month,
+                           end_date: Time.zone.today.end_of_month)
   end
 end
