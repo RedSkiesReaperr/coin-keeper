@@ -36,6 +36,8 @@ RSpec.describe 'User sees dashboard', :js do
   before do
     travel_to(Date.new(2024, 7, 1))
 
+    user.user_preference.update!(start_date: Date.new(2024, 1, 1),
+                                 end_date: Date.new(2024, 3, 1))
     movements
     sign_in user
     visit dashboard_path

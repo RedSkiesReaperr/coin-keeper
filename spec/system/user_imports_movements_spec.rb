@@ -20,6 +20,8 @@ RSpec.describe 'User imports movements', :js do
     csv_file.write(file_content)
     csv_file.rewind
 
+    user.user_preference.update!(start_date: Date.new(2024, 1, 1),
+                                 end_date: Date.new(2024, 7, 1))
     sign_in user
     visit movements_path
   end
