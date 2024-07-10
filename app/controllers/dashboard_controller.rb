@@ -5,7 +5,8 @@ class DashboardController < ApplicationController
 
   before_action :authenticate_user!
 
-  def index
+  def index # rubocop:disable Metrics/AbcSize
+    @to_review_count = movements.pointed(false).count
     @total_earnings = earnings_summary.total
     @earnings_by_day = build_series(earnings_summary.by_days, key: :day, value: :amount)
     @total_expenses = expenses_summary.total
