@@ -1,7 +1,4 @@
-<%= turbo_stream_from current_user, :notifications if user_signed_in? %>
+<% flash.each do |type, message| %>
+  <%= render partial: 'layouts/notification', locals: { type:, message: } %>
+<% end %>
 
-<div id="flash" class="fixed bottom-0 right-0 w-2/5 mb-4 mr-4 z-10">
-  <% flash.each do |type, message| %>
-    <%= render partial: 'layouts/notification', locals: { type:, message: } %>
-  <% end %>
-</div>
