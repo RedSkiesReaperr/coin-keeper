@@ -4,18 +4,18 @@ export default class extends Controller {
   static targets = ['hide']
 
   connect() {
-    const options = {
+    this.dismissInstance = new Dismiss(this.element, this.hideTarget, this.options)
+
+    setTimeout(() => {
+      this.dismissInstance.hide()
+    }, 3000)
+  }
+
+  get options() {
+    return {
       transition: 'transition-opacity',
       duration: 1000,
       timing: 'ease-in-out',
-
-      // callback functions
-      onHide: (context, targetEl) => {
-        console.log('element has been dismissed')
-        console.log(targetEl)
-      }
-    };
-
-    this.dismissInstance = new Dismiss(this.element, this.hideTarget, options)
+    }
   }
 }

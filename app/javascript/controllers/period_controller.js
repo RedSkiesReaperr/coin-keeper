@@ -1,7 +1,7 @@
-import Form_controller from "./form_controller";
+import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="period"
-export default class extends Form_controller {
+export default class extends Controller {
   static targets = ["start", "end", "range"]
   static values = {
     startDefault: String,
@@ -18,11 +18,11 @@ export default class extends Form_controller {
     this.rangeTargetValue.getDatepickerInstance().setDates(this.startDateValue, this.endDateValue)
 
     this.startTarget.addEventListener('changeDate', (e) => {
-      this.submit()
+      this.element.requestSubmit()
     })
 
     this.endTarget.addEventListener('changeDate', (e) => {
-      this.submit()
+      this.element.requestSubmit()
     })
   }
 
