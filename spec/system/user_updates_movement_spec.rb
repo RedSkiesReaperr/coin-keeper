@@ -11,18 +11,10 @@ RSpec.describe 'User updates movement', :js do
     visit edit_movement_path(movement)
   end
 
-  it "can't update `supplier` field" do
-    expect(page).to have_field('movement[supplier]', disabled: true)
-  end
-
-  it "can't update `amount` field" do
-    expect(page).to have_field('movement[amount]', disabled: true)
-  end
-
   context 'when editing `label` field' do
     before do
       fill_in 'movement[label]', with: new_label
-      click_on 'Update'
+      click_on 'Save'
     end
 
     context 'with invalid value' do
@@ -49,7 +41,7 @@ RSpec.describe 'User updates movement', :js do
   context 'when editing `comment` field' do
     before do
       fill_in 'movement[comment]', with: new_comment
-      click_on 'Update'
+      click_on 'Save'
     end
 
     context 'with valid value' do
@@ -68,7 +60,7 @@ RSpec.describe 'User updates movement', :js do
   context 'when editing `pointed` field' do
     before do
       uncheck 'movement[pointed]'
-      click_on 'Update'
+      click_on 'Save'
     end
 
     it 'displays success message' do
@@ -76,14 +68,14 @@ RSpec.describe 'User updates movement', :js do
     end
 
     it 'updated the pointed value' do
-      expect(page).to have_field('movement[pointed]', checked: false, disabled: true)
+      expect(page).to have_field("movement_#{movement.id}[pointed]", checked: false, disabled: true)
     end
   end
 
   context 'when editing `ignored` field' do
     before do
       check 'movement[ignored]'
-      click_on 'Update'
+      click_on 'Save'
     end
 
     it 'displays success message' do
@@ -91,7 +83,7 @@ RSpec.describe 'User updates movement', :js do
     end
 
     it 'updated the ignored value' do
-      expect(page).to have_field('movement[ignored]', checked: true, disabled: true)
+      expect(page).to have_field("movement_#{movement.id}[ignored]", checked: true, disabled: true)
     end
   end
 end

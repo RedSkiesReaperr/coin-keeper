@@ -1,0 +1,33 @@
+<div id="movements_table" class="table w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+  <div id="movements_table_head" class="table-header-group text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <div class="table-row font-bold">
+      <div class="table-cell px-6 py-3">
+        Date
+      </div>
+      <div class="table-cell px-6 py-3">
+        Label
+      </div>
+      <div class="table-cell px-6 py-3">
+        Supplier
+      </div>
+      <div class="table-cell px-6 py-3">
+        Amount
+      </div>
+      <div class="table-cell px-6 py-3">
+        Comment
+      </div>
+      <div class="table-cell px-6 py-3">
+        Pointed
+      </div>
+      <div class="table-cell px-6 py-3">
+        Ignored
+      </div>
+      <div class="table-cell px-6 py-3">
+        Actions
+      </div>
+    </div>
+  </div>
+  <div id="movements_table_body" class="table-row-group">
+    <%= render movements %>
+  </div>
+</div>

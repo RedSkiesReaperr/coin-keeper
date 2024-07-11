@@ -50,7 +50,9 @@
 
   <div class="mt-10 relative overflow-x-auto  sm:rounded-lg">
     <%= turbo_frame_tag 'movements_list', src: movements_url(format: :turbo_stream, page: params[:page], query: params[:query], pointed: params[:pointed], ignored: params[:ignored]), class: 'flex flex-col justify-start items-stretch' do %>
-      <%= render @movements %>
+      <div id="movements_table_container" class="relative overflow-x-auto sm:rounded-lg">
+        <%= render partial: 'table', locals: { movements: @movements } %>
+      </div>
 
       <div class="mt-6 text-center">
         <%== pagy_nav @pagy %>

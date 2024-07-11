@@ -1,44 +1,35 @@
-<%= turbo_frame_tag movement, class: "odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700" do %>
-  <div class="flex flex-row flex-wrap">
-    <div class="px-4 py-2 w-32 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-      <p class="text-xs italic">Date</p>
-      <%= date(movement) %>
-    </div>
+<%= turbo_frame_tag movement, class: "table-row odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700" do %>
+  <div class="table-cell px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+    <%= date(movement) %>
+  </div>
 
-    <div class="px-4 py-2 w-96 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-      <p class="text-xs italic">Label</p>
-      <%= truncate(movement.label, length: 40, separator: '') %>
-    </div>
+  <div class="table-cell px-6 py-4">
+    <%= truncate(movement.label, length: 40, separator: '') %>
+  </div>
 
-    <div class="px-4 py-2 w-64 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-      <p class="text-xs italic">Supplier</p>
-      <%= truncate(movement.supplier, length: 26, separator: '') %>
-    </div>
+  <div class="table-cell px-6 py-4">
+    <%= truncate(movement.supplier, length: 26, separator: '') %>
+  </div>
 
-    <div class="px-4 py-2 w-36 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-      <p class="text-xs italic">Amount</p>
-      <div class="<%= movement.ignored? ? "blur-sm hover:blur-none" : "" %>">
-        <%= amount(movement) %>
-      </div>
+  <div class="table-cell px-6 py-4">
+    <div class="<%= movement.ignored? ? "blur-sm hover:blur-none" : "" %>">
+      <%= amount(movement) %>
     </div>
+  </div>
 
-    <div class="px-4 py-2 w-96 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-      <p class="text-xs italic">Comment</p>
-      <%= truncate(movement.comment, length: 40, separator: '') %>
-    </div>
+  <div class="table-cell px-6 py-4">
+    <%= truncate(movement.comment, length: 40, separator: '') %>
+  </div>
 
-    <div class="px-4 py-2 w-24 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
-      <p class="text-xs italic">Pointed</p>
-      <%= check_box_tag 'movement[pointed]', nil, movement.pointed, disabled: true, class: 'text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600' %>
-    </div>
+  <div class="table-cell px-6 py-4">
+    <%= check_box_tag "movement_#{movement.id}[pointed]", nil, movement.pointed, disabled: true, class: 'text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600' %>
+  </div>
 
-    <div class="px-4 py-2 w-24 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
-      <p class="text-xs italic">Ignored</p>
-      <%= check_box_tag 'movement[ignored]', nil, movement.ignored, disabled: true, class: 'text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600' %>
-    </div>
+  <div class="table-cell px-6 py-4">
+    <%= check_box_tag "movement_#{movement.id}[ignored]", nil, movement.ignored, disabled: true, class: 'text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600' %>
+  </div>
 
-    <div class="flex flex-grow justify-end items-center px-4 py-2">
-      <%= link_to 'Edit', edit_movement_path(movement), class: 'focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800' %>
-    </div>
+  <div class="table-cell px-6 py-4">
+    <%= link_to 'Edit', edit_movement_path(movement), class: 'py-2.5 px-4 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700' %>
   </div>
 <% end %>
