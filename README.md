@@ -10,13 +10,16 @@
 - Ruby 3.2.2
 - Ruby on Rails 7.1.3
 - PostgreSQL v16
+- Redis
 
 ## Getting started
-
+> You must start your Redis server before continuing this part
 ```shell
 $ rails db:create db:migrate db:seed
 $ bin/dev
 $ open http://localhost:3000
+# Open a new terminal tab/window
+$ bundle exec sidekiq
 ```
 
 ## Release
@@ -33,6 +36,9 @@ $ docker push redskiesreaperr/coinkeeper:x.x.x
 - [factory_bot_rails](https://github.com/thoughtbot/factory_bot_rails)
 - [faker](https://github.com/faker-ruby/faker/tree/main)
 - [pagy](https://github.com/ddnexus/pagy)
+- [pg_search](https://github.com/Casecommons/pg_search)
+- [rails_heroicon](https://github.com/abeidahmed/rails-heroicon)
 - [rspec-rails](https://github.com/rspec/rspec-rails)
 - [simplecov](https://github.com/simplecov-ruby/simplecov)
+- [sidekiq](https://github.com/sidekiq/sidekiq)
 - [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers)
