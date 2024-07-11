@@ -9,13 +9,19 @@ services:
       REDIS_URL: redis://redis:6379/1
     ports:
       - "3333:3000"
+    depends_on:
+      - db
+      - redis
 
   db:
     image: postgres:16.2
+    restart: always
     environment:
       POSTGRES_USER: coin_keeper
       POSTGRES_PASSWORD: #db password
       POSTGRES_DB: coin_keeper_production
+    volumes:
+      - /your/local/folder:/var/lib/postgresql/data
 
   redis:
     image: redis:7.2.5
