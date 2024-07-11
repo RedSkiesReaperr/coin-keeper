@@ -11,9 +11,9 @@
 </head>
 
 <body id="application-body">
-<%= turbo_stream_from current_user, :notifications if user_signed_in? %>
-<div id="flash" class="fixed bottom-0 right-0 w-2/5 mb-4 mr-4 z-10">
-  <%= render 'layouts/flash' %>
+<%= turbo_stream_from current_user, :flashes if user_signed_in? %>
+<div id="flashes" class="fixed bottom-0 right-0 w-2/5 mb-4 mr-4 z-10">
+  <%= render 'layouts/flashes' %>
 </div>
 
 <%= render 'layouts/sidenav' %>

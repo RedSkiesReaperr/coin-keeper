@@ -1,4 +1,27 @@
-<% flash.each do |type, message| %>
-  <%= render partial: 'layouts/notification', locals: { type:, message: } %>
-<% end %>
+<% type_sym = type.to_sym %>
+<% container_classes = class_names(
+  "text-red-800 bg-red-50 border-red-300 dark:text-red-400 dark:border-red-800": type_sym == :alert,
+  "text-green-800 bg-green-50 border-green-300 dark:text-green-400 dark:border-green-800": type_sym == :notice,
+  "text-blue-800 bg-blue-50 border-blue-300 dark:text-blue-400 dark:border-blue-800": type_sym == :info,
+  "text-yellow-800 bg-yellow-50 border-yellow-300 dark:text-yellow-400 dark:border-yellow-800": type_sym == :warn,
+  "text-gray-800 bg-gray-50 border-gray-300 dark:text-gray-400 dark:border-gray-800": type_sym == :default
+) %>
 
+<% dismiss_classes = class_names(
+  "bg-red-50 text-red-500 focus:ring-red-400 hover:bg-red-200 dark:text-red-400": type_sym == :alert,
+  "bg-green-50 text-green-500 focus:ring-green-400 hover:bg-green-200 dark:text-green-400": type_sym == :notice,
+  "bg-blue-50 text-blue-500 focus:ring-blue-400 hover:bg-blue-200 dark:text-blue-400": type_sym == :info,
+  "bg-yellow-50 text-yellow-500 focus:ring-yellow-400 hover:bg-yellow-200 dark:text-yellow-400": type_sym == :warn,
+  "bg-gray-50 text-gray-500 focus:ring-gray-400 hover:bg-gray-200 dark:text-gray-400": type_sym == :default
+) %>
+
+<div data-controller="flash" class="flex items-center p-4 mb-4 rounded-lg <%= container_classes %> dark:bg-gray-800" role="alert">
+  <%= flash_icon(type) %>
+
+  <div class="ms-3 text-sm font-medium">
+    <%= message %>
+  </div>
+  <button data-flash-target="hide" type="button" class="ms-auto -mx-1.5 -my-1.5 rounded-lg focus:ring-2 p-1.5 inline-flex items-center justify-center h-8 w-8 <%= dismiss_classes %> dark:bg-gray-800 dark:hover:bg-gray-700">
+    <%= heroicon 'x-mark' %>
+  </button>
+</div>

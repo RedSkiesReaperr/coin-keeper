@@ -4,7 +4,18 @@ module ApplicationHelper
   include Pagy::Frontend
 
   def render_turbo_stream_flash_messages
-    turbo_stream.prepend 'flash', partial: 'layouts/flash'
+    turbo_stream.prepend 'flashes', partial: 'layouts/flashes'
+  end
+
+  def flash_icon(type)
+    types_icons = {
+      alert: 'exclamation-circle',
+      notice: 'check-circle',
+      info: 'information-circle',
+      warn: 'exclamation-triangle'
+    }
+
+    heroicon types_icons[type.to_sym], variant: 'outline'
   end
 
   def currency(number, options = {})

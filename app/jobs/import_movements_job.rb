@@ -4,18 +4,18 @@ class ImportMovementsJob < ApplicationJob
   queue_as :default
 
   after_enqueue do |job|
-    notify(type: 'info', message: I18n.t('movements.import.enqueued'), user: job.arguments.first[:user])
+    flash(type: 'info', message: I18n.t('movements.import.enqueued'), user: job.arguments.first[:user])
   end
 
   around_perform do |job, block|
     user = job.arguments.first[:user]
 
-    notify(user:, type: 'warn', message: I18n.t('movements.import.started'))
+    flash(user:, type: 'warn', message: I18n.t('movements.import.started'))
     block.call
-    notify(user:, type: 'notice', message: I18n.t('movements.import.success'))
+    flash(user:, type: 'notice', message: I18n.t('movements.import.success'))
   rescue StandardError
-    notify(user:, type: 'alert', message: I18n.t('movements.import.failure',
-                                                 msg: I18n.t('movements.import.errors.generic')))
+    flash(user:, type: 'alert', message: I18n.t('movements.import.failure',
+                                                msg: I18n.t('movements.import.errors.generic')))
   end
 
   def perform(attachment_id:, user:)

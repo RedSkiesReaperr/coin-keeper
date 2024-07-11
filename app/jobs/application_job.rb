@@ -9,10 +9,10 @@ class ApplicationJob < ActiveJob::Base
 
   protected
 
-  def notify(user:, message:, type: 'default')
-    Turbo::StreamsChannel.broadcast_prepend_to [user, :notifications],
-                                               target: 'flash',
-                                               partial: 'layouts/notification',
+  def flash(user:, message:, type: 'default')
+    Turbo::StreamsChannel.broadcast_prepend_to [user, :flashes],
+                                               target: 'flashes',
+                                               partial: 'layouts/flash',
                                                locals: { type:, message: }
   end
 end
