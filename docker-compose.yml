@@ -7,11 +7,14 @@ services:
       RAILS_MASTER_KEY: #master key
       COIN_KEEPER_DATABASE_PASSWORD: #db password
       REDIS_URL: redis://redis:6379/1
+    volumes:
+      - /local/shared-storage:/rails/storage
     ports:
       - "3333:3000"
     depends_on:
       - db
       - redis
+      - sidekiq
 
   db:
     image: postgres:16.2
@@ -25,5 +28,19 @@ services:
 
   redis:
     image: redis:7.2.5
+    volumes:
+      - /volume1/docker/coin-keeper/redis:/data
     ports:
       - "6379:6379"
+
+  sidekiq:
+    image: redskiesreaperr/coinkeeper
+    environment:
+      RAILS_MASTER_KEY: #master key
+      COIN_KEEPER_DATABASE_PASSWORD: #db password
+      REDIS_URL: redis://redis:6379/1
+    volumes:
+      - /local/shared-storage:/rails/storage
+    command: bundle exec sidekiq
+    depends_on:
+      - redis
